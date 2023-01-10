@@ -24,11 +24,26 @@
                         <GradientStop Offset="0.7" Color="#0077FA" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <TextBlock
-                    Classes="H6"
-                    Foreground="White"
-                    Text="{Binding AssemblyName}"
-                    Theme="{DynamicResource TitleTextBlock}" />
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock
+                        Classes="H6"
+                        Foreground="White"
+                        Text="{Binding AssemblyName}"
+                        Theme="{DynamicResource TitleTextBlock}" />
+                    <TextBlock
+                        Margin="4,0,0,0"
+                        Foreground="White"
+                        Opacity="0.5"
+                        Text="(" />
+                    <TextBlock
+                        Foreground="White"
+                        Opacity="0.5"
+                        Text="{Binding Version}" />
+                    <TextBlock
+                        Foreground="White"
+                        Opacity="0.5"
+                        Text=")" />
+                </WrapPanel>
             </Border>
             <TextBox
                 Margin="0,8"

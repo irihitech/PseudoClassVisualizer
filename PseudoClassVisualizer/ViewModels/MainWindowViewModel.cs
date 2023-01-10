@@ -5,8 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Avalonia.Controls.Metadata;
-using PseudoClassVisualizer.Views;
 
 namespace PseudoClassVisualizer.ViewModels;
 
