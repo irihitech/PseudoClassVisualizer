@@ -1,17 +1,49 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+using Avalonia.Controls.Metadata;
+using PseudoClassVisualizer.Views;
 
 namespace PseudoClassVisualizer.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public void LoadAssemblies(IEnumerable<string> names)
+    public ObservableCollection<AssemblyViewModel> Assemblies { get; set; }
+    private AssemblyViewModel _selectedAssembly;
+
+    public AssemblyViewModel SelectedAssembly
     {
-        foreach (var name in names)
+        get => _selectedAssembly;
+        set => SetProperty(ref _selectedAssembly, value);
+    }
+
+    public MainWindowViewModel()
+    {
+        Assemblies = new ObservableCollection<AssemblyViewModel>();
+    }
+    
+    public async Task LoadAssemblies(IEnumerable<string> fileNames)
+    {
+        Assemblies.Clear();
+        foreach (var name in fileNames)
         {
-            var assembly = Assembly.LoadFile(name);
-            var types = assembly.GetTypes();
+            try
+            {
+                var assembly = Assembly.LoadFile(name);
+                var assemblyViewModel = new AssemblyViewModel(assembly);
+                if(assemblyViewModel.Types.Any()){
+                    Assemblies.Add(assemblyViewModel);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
             
         }        
     }

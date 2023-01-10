@@ -7,6 +7,7 @@
     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
     xmlns:idd="clr-namespace:Avalonia.Xaml.Interactions.DragAndDrop;assembly=Avalonia.Xaml.Interactions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:PseudoClassVisualizer.Views"
     xmlns:vm="using:PseudoClassVisualizer.ViewModels"
     Title="PseudoClassVisualizer"
     d:DesignHeight="450"
@@ -14,14 +15,17 @@
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <b:FileDropHandler x:Key="DropBehavior" />
-    </Window.Resources>
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
-    <StackPanel>
+    <Window.Resources>
+        <b:FileDropHandler x:Key="DropBehavior" />
+    </Window.Resources>
+    <Grid ColumnDefinitions="300, *" RowDefinitions="Auto, *">
         <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             Height="100"
             Margin="8"
             Classes="Shadow"
@@ -32,7 +36,21 @@
                 </i:BehaviorCollection>
             </i:Interaction.Behaviors>
         </Border>
-        <Button HorizontalAlignment="Left" Content="Hello Avalonia" />
-    </StackPanel>
+        <ListBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Items="{Binding Assemblies}"
+            SelectedItem="{Binding SelectedAssembly}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="vm:AssemblyViewModel">
+                    <TextBlock Text="{Binding AssemblyName}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <views:AssemblyView
+            Grid.Row="1"
+            Grid.Column="1"
+            DataContext="{Binding SelectedAssembly}" />
+    </Grid>
 
 </Window>

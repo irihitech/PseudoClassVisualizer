@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Avalonia.Input;
 using Avalonia.Xaml.Interactions.DragAndDrop;
 using PseudoClassVisualizer.ViewModels;
@@ -18,7 +19,14 @@ public class FileDropHandler: DropHandlerBase
         var names = e.Data.GetFileNames();
         if (targetContext is MainWindowViewModel vm)
         {
-            vm.LoadAssemblies(names);
+            try
+            {
+                vm.LoadAssemblies(names);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
         base.Drop(sender, e, sourceContext, targetContext);
     }
