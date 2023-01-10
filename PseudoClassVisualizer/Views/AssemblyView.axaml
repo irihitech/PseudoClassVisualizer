@@ -13,11 +13,41 @@
         <vm:AssemblyViewModel />
     </Design.DataContext>
     <Grid RowDefinitions="Auto, *">
-        <TextBlock Grid.Row="0" Text="{Binding AssemblyName}" />
-        <ListBox Grid.Row="1" Items="{Binding Types}">
+        <StackPanel
+            Grid.Row="0"
+            Margin="8,8,16,8"
+            IsVisible="{Binding $self.DataContext, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <Border Padding="8" CornerRadius="6">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0%, 50%" EndPoint="100%, 50%">
+                        <GradientStop Offset="0.3" Color="#004FB3" />
+                        <GradientStop Offset="0.7" Color="#0077FA" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock
+                    Classes="H6"
+                    Foreground="White"
+                    Text="{Binding AssemblyName}"
+                    Theme="{DynamicResource TitleTextBlock}" />
+            </Border>
+            <TextBox
+                Margin="0,8"
+                Classes="clearButton"
+                Text="{Binding QueryString}"
+                Theme="{DynamicResource BorderlessTextBox}"
+                Watermark="Filter by type name">
+                <TextBox.InnerLeftContent>
+                    <PathIcon
+                        Width="10"
+                        Height="10"
+                        Data="M349 838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V642H349v196zm531.1-684H143.9c-24.5 0-39.8 26.7-27.5 48l221.3 376h348.8l221.3-376c12.1-21.3-3.2-48-27.7-48z" />
+                </TextBox.InnerLeftContent>
+            </TextBox>
+        </StackPanel>
+        <ListBox Grid.Row="1" Items="{Binding SelectedTypes}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="vm:TypeViewModel">
-                    <views:TypeView DataContext="{Binding}" />
+                    <views:TypeView Margin="0,4" DataContext="{Binding}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

@@ -11,17 +11,17 @@ public class FileDropHandler: DropHandlerBase
     public override bool Validate(object? sender, DragEventArgs e, object? sourceContext, object? targetContext, object? state)
     {
         return true;
-        return base.Validate(sender, e, sourceContext, targetContext, state);
     }
 
-    public override void Drop(object? sender, DragEventArgs e, object? sourceContext, object? targetContext)
+    public override async void Drop(object? sender, DragEventArgs e, object? sourceContext, object? targetContext)
     {
         var names = e.Data.GetFileNames();
+        if (names is null) return;
         if (targetContext is MainWindowViewModel vm)
         {
             try
             {
-                vm.LoadAssemblies(names);
+                await vm.LoadAssemblies(names);
             }
             catch (Exception ex)
             {

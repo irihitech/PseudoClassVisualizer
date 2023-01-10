@@ -13,9 +13,9 @@ namespace PseudoClassVisualizer.ViewModels;
 public class MainWindowViewModel : ViewModelBase
 {
     public ObservableCollection<AssemblyViewModel> Assemblies { get; set; }
-    private AssemblyViewModel _selectedAssembly;
+    private AssemblyViewModel? _selectedAssembly;
 
-    public AssemblyViewModel SelectedAssembly
+    public AssemblyViewModel? SelectedAssembly
     {
         get => _selectedAssembly;
         set => SetProperty(ref _selectedAssembly, value);
@@ -29,22 +29,25 @@ public class MainWindowViewModel : ViewModelBase
     public async Task LoadAssemblies(IEnumerable<string> fileNames)
     {
         Assemblies.Clear();
-        foreach (var name in fileNames)
+        await Task.Run(() =>
         {
-            try
+            foreach (var name in fileNames)
             {
-                var assembly = Assembly.LoadFile(name);
-                var assemblyViewModel = new AssemblyViewModel(assembly);
-                if(assemblyViewModel.Types.Any()){
-                    Assemblies.Add(assemblyViewModel);
+                try
+                {
+                    var assembly = Assembly.LoadFile(name);
+                    var assemblyViewModel = new AssemblyViewModel(assembly);
+                    if (assemblyViewModel.Types.Any())
+                    {
+                        Assemblies.Add(assemblyViewModel);
+                    }
+
                 }
-                
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            
-        }        
+        });
     }
 }

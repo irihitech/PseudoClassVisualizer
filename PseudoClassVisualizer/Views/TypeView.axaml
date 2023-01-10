@@ -13,7 +13,7 @@
     </Design.DataContext>
 
     <StackPanel>
-        <WrapPanel>
+        <WrapPanel Margin="0,0,0,4">
             <SelectableTextBlock Text="{Binding TypeName}" />
             <TextBlock
                 Margin="8,0,0,0"
@@ -31,6 +31,7 @@
             <ItemsPresenter.ItemTemplate>
                 <DataTemplate>
                     <Label
+                        Margin="4,0"
                         Classes="Blue"
                         Content="{Binding}"
                         Cursor="Hand"
