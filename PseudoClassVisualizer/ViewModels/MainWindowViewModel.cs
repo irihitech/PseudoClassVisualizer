@@ -31,21 +31,41 @@ public class MainWindowViewModel : ViewModelBase
         {
             foreach (var name in fileNames)
             {
+                Assembly? assembly = null;
                 try
                 {
-                    var assembly = Assembly.LoadFile(name);
+                    assembly = Assembly.LoadFile(name);
                     var assemblyViewModel = new AssemblyViewModel(assembly);
                     if (assemblyViewModel.Types.Any())
                     {
                         Assemblies.Add(assemblyViewModel);
                     }
-
+                }
+                catch (ReflectionTypeLoadException rex)
+                {
+                    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                    foreach (var a in assemblies)
+                    {
+                        if (assembly.GetName().Name == a.GetName().Name)
+                        {
+                            var assemblyViewModel = new AssemblyViewModel(a);
+                            if (assemblyViewModel.Types.Any())
+                            {
+                                Assemblies.Add(assemblyViewModel);
+                            }
+                            break;;
+                        }
+                        
+                    }
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
+                    
                 }
             }
         });
+        
+        
     }
 }
