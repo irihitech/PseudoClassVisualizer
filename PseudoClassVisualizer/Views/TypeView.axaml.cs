@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Platform;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
 namespace PseudoClassVisualizer.Views;
@@ -20,9 +21,9 @@ public partial class TypeView : UserControl
 
     private async void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (sender is Label l && l.Content != null) 
+        if (sender is Label { Content: not null } l && TopLevel.GetTopLevel(this)?.Clipboard is { } clipboard ) 
         {
-            await Application.Current?.Clipboard.SetTextAsync(l.Content?.ToString());
+            await clipboard.SetTextAsync(l.Content?.ToString());
         }
     }
 }

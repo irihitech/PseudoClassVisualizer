@@ -22,13 +22,13 @@
             <TextBlock Classes="Tertiary" Text="{Binding Namespace}" />
             <TextBlock Classes="Tertiary" Text=")" />
         </WrapPanel>
-        <ItemsPresenter Items="{Binding PseudoClasses}" VirtualizationMode="Simple">
-            <ItemsPresenter.ItemsPanel>
+        <ItemsControl ItemsSource="{Binding PseudoClasses}">
+            <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
-            </ItemsPresenter.ItemsPanel>
-            <ItemsPresenter.ItemTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Label
                         Margin="4,0"
@@ -38,7 +38,7 @@
                         PointerPressed="InputElement_OnPointerPressed"
                         Theme="{DynamicResource TagLabel}" />
                 </DataTemplate>
-            </ItemsPresenter.ItemTemplate>
-        </ItemsPresenter>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </StackPanel>
 </UserControl>

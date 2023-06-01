@@ -5,7 +5,7 @@
     xmlns:b="clr-namespace:PseudoClassVisualizer.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
-    xmlns:idd="clr-namespace:Avalonia.Xaml.Interactions.DragAndDrop;assembly=Avalonia.Xaml.Interactions"
+    xmlns:idd="clr-namespace:Avalonia.Xaml.Interactions.DragAndDrop;assembly=Avalonia.Xaml.Interactions.DragAndDrop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:PseudoClassVisualizer.Views"
     xmlns:vm="using:PseudoClassVisualizer.ViewModels"
@@ -65,7 +65,7 @@
                     Text="Assemblies: " />
                 <ListBox
                     Grid.Row="1"
-                    Items="{Binding Assemblies}"
+                    ItemsSource="{Binding Assemblies}"
                     SelectedItem="{Binding SelectedAssembly}">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="vm:AssemblyViewModel">

@@ -6,27 +6,7 @@
     <Application.DataTemplates>
         <local:ViewLocator />
     </Application.DataTemplates>
-    <Application.Resources>
-        <ControlTheme x:Key="{x:Type ItemsControl}" TargetType="ItemsControl">
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border
-                        Padding="{TemplateBinding Padding}"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
-                        <ItemsPresenter
-                            Name="PART_ItemsPresenter"
-                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                            Items="{TemplateBinding Items}"
-                            ItemsPanel="{TemplateBinding ItemsPanel}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter>
-        </ControlTheme>
-    </Application.Resources>
     <Application.Styles>
-        <StyleInclude Source="avares://Semi.Avalonia/Themes/LightTheme.axaml" />
+        <StyleInclude Source="avares://Semi.Avalonia/Themes/Index.axaml" />
     </Application.Styles>
 </Application>

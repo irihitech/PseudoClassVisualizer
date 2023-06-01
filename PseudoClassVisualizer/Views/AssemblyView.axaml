@@ -59,7 +59,7 @@
                 </TextBox.InnerLeftContent>
             </TextBox>
         </StackPanel>
-        <ListBox Grid.Row="1" Items="{Binding SelectedTypes}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding SelectedTypes}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="vm:TypeViewModel">
                     <views:TypeView Margin="0,4" DataContext="{Binding}" />
